@@ -4,14 +4,14 @@ import webview
 from json import JSONDecodeError
 
 storage_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'Settings')
-os.makedirs(storage_path, exist_ok=True)
-json_file_path = os.path.join(storage_path, 'config.json')
-if not os.path.exists(json_file_path):
-    data = {"zoom": 1.0, "first_launch": True}
+os.makedirs(storage_path, exist_ok=True) # Creates the folders if there's none
+json_file_path = os.path.join(storage_path, 'config.json') 
+if not os.path.exists(json_file_path): # If json is not created it will be created
+    data = {"zoom": 1.0, "first_launch": True} 
     with open(json_file_path, 'w') as file:
         json.dump(data, file)
 
-def initialize(window):
+def initialize(window): # Set zoom
     try:
         with open(json_file_path, 'r') as file:
             zoom_data = json.load(file)
@@ -25,7 +25,7 @@ def get_url():
         with open(json_file_path, 'r') as file:
             json_data = json.load(file)
             
-            if 'zoom' not in json_data:
+            if 'zoom' not in json_data: # Error handling BS (lines: 28-46)
                 return "https://github.com/deb-its/Lilcord/blob/main/messages/error.md"
             
             if 'first_launch' not in json_data:
